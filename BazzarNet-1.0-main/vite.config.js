@@ -8,13 +8,24 @@ export default defineConfig({
     host: '0.0.0.0',   // Allow access from other devices on the same network
     port: 5173,        // Dev server port (default is 5173)
   },
+  build: {
+    sourcemap: false,  // Disable sourcemaps for production to avoid errors
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.js',
     css: false, // Disable CSS processing for tests
     coverage: {
-      provider: 'v8', // Use @vitest/coverage-v8 (compatible with Vitest v1.x)
+      provider: 'v8', // Use @vitest/coverage-v8 (compatible with Vitest v2.x)
       reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/',

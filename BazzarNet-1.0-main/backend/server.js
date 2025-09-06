@@ -7,7 +7,7 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import mongoSanitize from 'express-mongo-sanitize'; // New: Import mongoSanitize
-import xss from 'xss-clean'; // New: Import xss-clean
+import xss from 'xss'; // New: Import xss
 
 import env from "./config/env.js";
 import connectDB from "./config/db.js";
@@ -79,7 +79,18 @@ app.use(cors());
 app.use(mongoSanitize());
 
 // New: Data sanitization against XSS
-app.use(xss());
+app.use((req, res, next) => {
+  if (req.body) {
+    req.body = JSON.parse(xss(JSON.stringify(req.body)));
+  }
+  if (req.query) {
+    req.query = JSON.parse(xss(JSON.stringify(req.query)));
+  }
+  if (req.params) {
+    req.params = JSON.parse(xss(JSON.stringify(req.params)));
+  }
+  next();
+});
 
 if (env.NODE_ENV === "development") {
   app.use(morgan("dev"));
