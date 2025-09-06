@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Frontend build outputs
+dist/
+dist-ssr/
+.vite/ # Vite cache directory
+
+# Backend build outputs (if any, though Node.js usually runs directly)
+# backend/dist/ # Uncomment if your backend has a build step that outputs to 'dist'
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+backend/.env # Crucial: Your backend's environment variables
+
+# Uploaded files (local storage)
+backend/uploads/ # Critical: Multer's local upload directory
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json # Keep extensions.json for shared recommendations
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~ # Common backup files
+Thumbs.db # Windows thumbnail cache
+
+# Test coverage reports
+coverage/
+.nyc_output/ # If using nyc for coverage (less common with Vitest)
