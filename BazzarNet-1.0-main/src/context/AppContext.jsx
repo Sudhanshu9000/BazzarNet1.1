@@ -224,6 +224,10 @@ export const AppProvider = ({ children }) => {
           await Promise.all(promises);
         } catch (error) {
           console.error("Error loading initial data:", error);
+          // Don't show error toast for network issues during initial load
+          if (!error.message?.includes('Failed to fetch') && !error.message?.includes('NetworkError')) {
+            toast.error('Failed to load some data. Please refresh the page.');
+          }
         }
       } else {
         // Clear all data if logged out
