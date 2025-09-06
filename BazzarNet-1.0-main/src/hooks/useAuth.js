@@ -75,7 +75,10 @@ const useAuth = () => {
           // No toast here, as it's an auto-login, avoid spamming
         } catch (error) {
           console.error('Auto-login failed:', error);
-          toast.error('Your session expired. Please log in again.');
+          // Only show error toast if it's not a network error (which might be expected in production)
+          if (!error.message.includes('Failed to fetch') && !error.message.includes('NetworkError')) {
+            toast.error('Your session expired. Please log in again.');
+          }
           logout(); // Log out if token is invalid or expired
         }
       };
